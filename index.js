@@ -1,5 +1,9 @@
 const express = require('express');
-require('dotenv').config();
+// NODE_ENV ? require('dotenv').config() : ;
+
+if (NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 
 const {
     PORT
