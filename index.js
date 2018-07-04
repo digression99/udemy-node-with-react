@@ -12,7 +12,7 @@ if (NODE_ENV !== 'production') {
 const app = express();
 
 app.get('/', (req, res) => {
-    res.send({hi : 'there'});
+    res.send({hli : 'there'});
 });
 
 app.listen(PORT || 5000, () => {
