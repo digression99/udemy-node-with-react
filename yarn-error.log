@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/Cellar/node/10.3.0/bin/node /usr/local/Cellar/yarn/1.7.0/libexec/bin/yarn.js add --dev dotenv
+  /usr/local/Cellar/node/10.5.0_1/bin/node /usr/local/Cellar/yarn/1.7.0/libexec/bin/yarn.js add passport passport-google-oauth20
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/pseudocoder/.yarn-global/bin
@@ -8,7 +8,7 @@ Yarn version:
   1.7.0
 
 Node version: 
-  10.3.0
+  10.5.0
 
 Platform: 
   darwin x64
@@ -23,7 +23,8 @@ npm manifest:
     "description": "node with react server",
     "main": "index.js",
     "engines": {
-      "node": "10.3.0"
+      "node": "10.5.0",
+      "yarn" : "1.7.0"
     },
     "author": "Kim Ilsik",
     "license": "MIT",
@@ -32,6 +33,9 @@ npm manifest:
     },
     "dependencies": {
       "express": "^4.16.3"
+    },
+    "devDependencies": {
+      "dotenv": "^6.0.0"
     }
   }
 
