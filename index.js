@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
@@ -7,8 +8,14 @@ if (process.env.NODE_ENV !== 'production') {
 require('./services/passport');
 
 const {
-    PORT
+    PORT,
+    MONGODB_USERNAME,
+    MONGODB_PASSWORD,
+    MONGODB_URI
 } = process.env;
+
+// db connection.
+mongoose.connect(`mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_URI}`);
 
 const app = express();
 app.use(require('./routes/auth'));
