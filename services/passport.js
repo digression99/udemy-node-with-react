@@ -8,6 +8,24 @@ const {
     OAUTH_CLIENT_SECRET
 } = process.env;
 
+// passport.initialize();
+// passport.session();
+
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser(async(id, done) => {
+    try {
+        const user = await User.findById(id);
+
+        done(null, user);
+    } catch (e) {
+        done(e);
+    }
+
+});
+
 passport.use(new GoogleStrategy({
     clientID : OAUTH_CLIENT_ID,
     clientSecret:OAUTH_CLIENT_SECRET,
@@ -31,16 +49,36 @@ passport.use(new GoogleStrategy({
 
     // check if the user already exists.
 
+    // User.findOne({googleID}).then(existingUser => {
+    //     if (existingUser) {
+    //         done(null, existingUser);
+    //
+    //     } else {
+    //         return new User({ googleID }).save();
+    //     }
+    // }).then(user => done(null, user))
+    // .catch( e => {
+    //     console.log(e);
+    //     done(e);
+    // });
+
     try {
         const existingUser = await User.findOne({googleID});
-        if (existingUser) throw new Error('user already exists.');
+        if (existingUser) {
+            // throw new Error('user already exists.');
+            // console.log('user already exists.');
+            return done(null, existingUser);
+        }
 
         const user = new User({
             googleID
         });
         await user.save();
+        done();
+        done(null, user);
     } catch (e) {
         console.log(e);
+        done(e);
     }
     done();
 }));

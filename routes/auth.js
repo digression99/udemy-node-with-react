@@ -9,4 +9,13 @@ router.get('/auth/google', passport.authenticate('google', {
     res.send('google oauth completed');
 });
 
+router.get('/api/current-user', (req, res) => {
+    res.send(req.user);
+});
+
+router.get('/api/logout', (req, res) => {
+    req.logout();
+    res.send(req.user);
+});
+
 module.exports = router;
