@@ -28,8 +28,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(require('./routes/auth'));
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 require('./services/passport');
 
