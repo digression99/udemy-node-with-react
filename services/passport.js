@@ -7,7 +7,6 @@ const {
     OAUTH_CLIENT_SECRET
 } = process.env;
 
-
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
@@ -20,7 +19,6 @@ passport.deserializeUser(async(id, done) => {
     } catch (e) {
         done(e);
     }
-
 });
 
 passport.use(new GoogleStrategy({
