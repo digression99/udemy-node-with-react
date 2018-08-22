@@ -23,4 +23,6 @@ router.get('/api/logout', (req, res) => {
     // res.send(req.user);
 });
 
+
+
 module.exports = router;
