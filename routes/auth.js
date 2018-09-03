@@ -1,9 +1,7 @@
 const passport = require('passport');
 const router = require('express').Router();
 
-router.get('/auth/google/callback',
-    passport.authenticate('google'),
-    (req, res) => {
+router.get('/auth/google/callback', passport.authenticate('google'), (req, res) => {
     res.redirect('/surveys');
 });
 

@@ -5,6 +5,15 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
     googleID : {
         type : String
+    },
+    credits : {
+        type : Number,
+        default : 0
+    },
+    googlePhotoURL : {
+        type : String,
+        default : null,
+        required : false
     }
 });
 
@@ -19,7 +28,5 @@ const userSchema = new Schema({
 //         });
 //     }
 // });
-
-
 
 module.exports = mongoose.model('user', userSchema);

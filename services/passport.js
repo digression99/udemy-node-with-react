@@ -30,19 +30,30 @@ passport.use(new GoogleStrategy({
     const googleID = profile.id;
     const name = profile.name.givenName + profile.name.familyName;
     const email = profile.emails[0].value;
-    const photoURL = profile.photos[0].value;
+    const googlePhotoURL = profile.photos[0].value;
 
     console.log('id : ', googleID);
     console.log('name : ', name);
     console.log('email : ', email);
-    console.log('photo URL : ', photoURL);
+    console.log('photo URL : ', googlePhotoURL);
 
     try {
-        const existingUser = await User.findOne({googleID});
+        const existingUser = await User.findOne({
+            googleID
+        });
         if (existingUser) {
-            return done(null, existingUser);
+            if (!existingUser.googlePhotoURL) {
+                existingUser.googlePhotoURL = googlePhotoURL;
+                const newUser = await existingUser.save();
+                return done(null, newUser);
+            } else {
+                return done(null, existingUser);
+            }
         }
-        const user = new User({googleID});
+        const user = new User({
+            googleID,
+            googlePhotoURL
+        });
         await user.save();
         done(null, user);
     } catch (e) {
