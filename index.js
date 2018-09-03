@@ -8,11 +8,6 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-console.log(path.join(__dirname, '../'))
-console.log(path.join(__dirname, '../..'))
-console.log(path.join(__dirname, '../../..'))
-console.log(path.join(__dirname, '../../../..'))
-
 const {
     PORT,
     MONGODB_USERNAME,
@@ -49,6 +44,11 @@ if (NODE_ENV === 'production') {
     // express will serve up the index.html file
     // if it doesn't recognize the route.
     app.get('*', (req, res) => {
+        console.log('this is global router.');
+        console.log(path.join(__dirname, '../'));
+        console.log(path.join(__dirname, '../..'));
+        console.log(path.join(__dirname, '../../..'));
+        console.log(path.join(__dirname, '../../../..'));
         res.sendFile(path.join(__dirname, '../../client/build/index.html'));
         // res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
     });
