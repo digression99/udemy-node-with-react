@@ -12,7 +12,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "heroku-postbuild":"YARN_PRODUCTION=false yarn install --prefix client && yarn run build --prefix client"
+    "heroku-postbuild" : "YARN_PRODUCTION=false yarn install --prefix client && yarn run build --prefix client"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
