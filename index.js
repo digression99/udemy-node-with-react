@@ -8,6 +8,11 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+console.log(path.join(__dirname, '../'))
+console.log(path.join(__dirname, '../..'))
+console.log(path.join(__dirname, '../../..'))
+console.log(path.join(__dirname, '../../../..'))
+
 const {
     PORT,
     MONGODB_USERNAME,
