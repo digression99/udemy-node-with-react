@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
+const winston = require('winston');
+const morgan = require('morgan');
 const path = require('path');
 
 const {
@@ -22,6 +24,15 @@ mongoose.connect(`mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_UR
 
 const app = express();
 
+const logger = winston.createLogger({
+    level : 'info',
+    format : winston.format.json(),
+    transports : [
+        new winston.transports.File({filename : 'error.log', level:'error'}),
+        new winston.transports.File({filename : 'combined.log'})
+    ]
+});
+
 app.use(bodyParser.json());
 app.use(cookieSession({
     maxAge : 30 * 24 * 60 * 60* 1000,
@@ -31,10 +42,13 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(require('./routes/auth'));
-app.use(require('./routes/billing'));
+app.use(morgan('combined'));
 
 require('./services/passport');
+
+app.use(require('./routes/auth'));
+app.use(require('./routes/billing'));
+app.use(require('./routes/survey'));
 
 if (NODE_ENV === 'production') {
     // express will serve up production assets
@@ -48,8 +62,11 @@ if (NODE_ENV === 'production') {
         console.log('this is global router.');
         console.log(path.join(__dirname, '../client/build/index.html'));
         res.sendFile(path.join(__dirname, '../client/build/index.html'));
-        // res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
     });
+} else {
+    logger.add(new winston.transports.Console({
+        format : winston.format.simple()
+    }))
 }
 
 app.listen(PORT || 5000, () => {
