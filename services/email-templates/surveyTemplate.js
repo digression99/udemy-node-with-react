@@ -14,8 +14,8 @@ module.exports = (survey) => {
                 <p>Please, answer the following question : </p>
                 <p>${survey.body}</p>
                 <div>
-                    <a href="${SENDGRID_REDIRECT_DOMAIN}/api/surveys/thanks">YES</a>
-                    <a href="${SENDGRID_REDIRECT_DOMAIN}/api/surveys/thanks">NO</a>
+                    <a href="${SENDGRID_REDIRECT_DOMAIN}/api/surveys/${survey.id}/yes">YES</a>
+                    <a href="${SENDGRID_REDIRECT_DOMAIN}/api/surveys/${survey.id}/no">NO</a>
                 </div> 
             </div>
         </body>
